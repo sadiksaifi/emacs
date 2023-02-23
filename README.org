@@ -897,15 +897,11 @@ This is a basic configuration for the TypeScript language so that =.ts= files ac
 
 #+end_src>
 
-*** Tailwind
+*** Haskell
 
 #+begin_src emacs-lisp
-
-  (use-package lsp-tailwindcss
-    :after lsp
-    :init
-    (setq lsp-tailwindcss-add-on-mode t))
-
+(use-package lsp-haskell
+  :mode "\\.hs\\'")
 #+end_src>
 
 ** Company Mode
