@@ -309,7 +309,7 @@ List of bookmarks   (C-x r b)")
         org-src-fontify-natively t
         org-fontify-quote-and-verse-blocks t
         org-src-tab-acts-natively t
-        org-edit-src-content-indentation 2
+        org-edit-src-content-indentation 0
         org-hide-block-startup nil
         org-src-preserve-indentation nil
         org-startup-folded 'content

@@ -5,7 +5,6 @@
 * About
 
 This is emacs configuration targeted towards programmer in mind.
-
  [[./images/emacs-home.png]]
   
 * Table Of Contents :toc:
@@ -572,7 +571,7 @@ This section contains the basic configuration for =org-mode= plus the configurat
           org-src-fontify-natively t
           org-fontify-quote-and-verse-blocks t
           org-src-tab-acts-natively t
-          org-edit-src-content-indentation 2
+          org-edit-src-content-indentation 0
           org-hide-block-startup nil
           org-src-preserve-indentation nil
           org-startup-folded 'content
