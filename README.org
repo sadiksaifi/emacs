@@ -224,7 +224,7 @@ I am using the [[https://www.nerdfonts.com/font-downloads][JetBrainsMono Nerd Fo
   (set-face-attribute 'variable-pitch nil
                       :font "Roboto"
                       :height efs/default-variable-font-size
-                      :weight 'regular)
+                      :weight 'medium)
 
   ;; Needed if using emacsclient. Otherwise, your fonts will be smaller than expected.
   (add-to-list 'default-frame-alist '(font . "JetBrainsMono Nerd Font-13"))
@@ -481,22 +481,9 @@ This Prescient configuration is optimized for use in System Crafters videos and 
 
 ** Text Scaling
 
-This is an example of using [[https://github.com/abo-abo/hydra][Hydra]] to design a transient key binding for quickly adjusting the scale of the text on screen.  We define a hydra that is bound to =C-s t s= and, once activated, =j= and =k= increase and decrease the text scale.  You can press any other key (or =f= specifically) to exit the transient key map.
-
 #+begin_src emacs-lisp
-
-  (use-package hydra
-    :defer t)
-
-  (defhydra hydra-text-scale (:timeout 4)
-    "scale text"
-    ("j" text-scale-increase "in")
-    ("k" text-scale-decrease "out")
-    ("f" nil "finished" :exit t))
-
-  (efs/leader-keys
-    "ts" '(hydra-text-scale/body :which-key "scale text"))
-
+(global-set-key (kbd "C-=") 'text-scale-increase)
+(global-set-key (kbd "C--") 'text-scale-decrease)
 #+end_src
 
 * Org Mode
@@ -509,42 +496,47 @@ The =efs/org-font-setup= function configures various text faces to tweak the siz
 
 #+begin_src emacs-lisp
 
-  (defun efs/org-font-setup ()
-  (dolist
-      (face
-          '((org-level-1 1.2 "#51afef" bold)
-          (org-level-2 1.1 "#c678dd" semi-bold)
-          (org-level-3 1.05 "#98be65" normal)
-          (org-level-4 1.0 "#da8548" normal)
-          (org-level-5 1.0 "#5699af" normal)
-          (org-level-6 1.0 "#a9a1e1" normal)
-          (org-level-7 1.0 "#46d9ff" normal)
-          (org-level-8 1.0 "#ff6c6b" normal)))
-  
-      (set-face-attribute (nth 0 face) nil
-                          :font "Roboto" :weight (nth 3 face)
-                          :weight (nth 3 face)
-                          :height (nth 1 face)
-                          :foreground (nth 2 face)))
-  
-      (set-face-attribute 'org-table nil
-                          :font "JetBrainsMono Nerd Font"
-                          :weight 'normal
-                          :height 1.0
-                          :foreground "#bfafdf")
-  
-      ;; Ensure that anything that should be fixed-pitch in Org files appears that way
-      (set-face-attribute 'org-block nil    :foreground nil :inherit 'fixed-pitch)
-      (set-face-attribute 'org-code nil     :inherit '(shadow fixed-pitch))
-      (set-face-attribute 'org-table nil    :inherit 'fixed-pitch)
-      (set-face-attribute 'org-formula nil  :inherit 'fixed-pitch)
-      (set-face-attribute 'org-table nil    :inherit '(shadow fixed-pitch))
-      (set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
-      (set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
-      (set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
-      (set-face-attribute 'org-checkbox nil  :inherit 'fixed-pitch)
-      (set-face-attribute 'line-number nil :inherit 'fixed-pitch)
-      (set-face-attribute 'line-number-current-line nil :inherit 'fixed-pitch))
+(defun efs/org-font-setup ()
+(dolist
+    (face
+        '((org-level-1 1.2 "#51afef" bold)
+        (org-level-2 1.1 "#c678dd" semi-bold)
+        (org-level-3 1.05 "#98be65" normal)
+        (org-level-4 1.0 "#da8548" normal)
+        (org-level-5 1.0 "#5699af" normal)
+        (org-level-6 1.0 "#a9a1e1" normal)
+        (org-level-7 1.0 "#46d9ff" normal)
+        (org-level-8 1.0 "#ff6c6b" normal)))
+
+    (set-face-attribute (nth 0 face) nil
+                        :font "Roboto"
+                        :weight (nth 3 face)
+                        :height (nth 1 face)
+                        :foreground (nth 2 face))
+
+    (set-face-attribute 'org-table nil
+                        :font "JetBrainsMono Nerd Font"
+                        :weight 'normal
+                        :height 1.0
+                        :foreground "#bfafdf")
+
+    (set-face-attribute 'org-block nil
+                        :font "JetBrainsMono Nerd Font"
+                        :weight 'normal
+                        :height 1.0))
+
+    ;; Ensure that anything that should be fixed-pitch in Org files appears that way
+    (set-face-attribute 'org-block nil    :foreground nil :inherit 'fixed-pitch)
+    (set-face-attribute 'org-code nil     :inherit '(shadow fixed-pitch))
+    (set-face-attribute 'org-table nil    :inherit 'fixed-pitch)
+    (set-face-attribute 'org-formula nil  :inherit 'fixed-pitch)
+    (set-face-attribute 'org-table nil    :inherit '(shadow fixed-pitch))
+    (set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
+    (set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
+    (set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
+    (set-face-attribute 'org-checkbox nil  :inherit 'fixed-pitch)
+    (set-face-attribute 'line-number nil :inherit 'fixed-pitch)
+    (set-face-attribute 'line-number-current-line nil :inherit 'fixed-pitch))
 
 #+end_src
 
@@ -564,8 +556,9 @@ This section contains the basic configuration for =org-mode= plus the configurat
   (use-package org
     :pin org
     :commands (org-capture org-agenda)
-    :hook (org-mode . efs/org-mode-setup)
-    :bind (("C-x C-a l" . 'org-agenda-list))
+    :hook ((org-mode . efs/org-mode-setup)
+					  (org-mode . efs/org-font-setup))
+    :bind (("C-c C-a l" . 'org-agenda-list))
     :config
     (setq org-ellipsis " ▾"
           org-src-fontify-natively t
@@ -690,9 +683,9 @@ This section contains the basic configuration for =org-mode= plus the configurat
          "| %U | %^{Weight} | %^{Notes} |" :kill-buffer t)))
 
     (define-key global-map (kbd "C-c j")
-      (lambda () (interactive) (org-capture nil "jj")))
+      (lambda () (interactive) (org-capture nil "jj"))))
 
-    (efs/org-font-setup))
+    ;;(efs/org-font-setup))
 
 #+end_src
 
@@ -720,7 +713,7 @@ We use [[https://github.com/joostkremers/visual-fill-column][visual-fill-column]
 #+begin_src emacs-lisp
 
   (defun efs/org-mode-visual-fill ()
-    (setq visual-fill-column-width 120
+    (setq visual-fill-column-width 135
           visual-fill-column-center-text t)
     (visual-fill-column-mode 1))
 
@@ -791,10 +784,10 @@ You can add more =src= block templates below by copying one of the lines and cha
 
 #+begin_src emacs-lisp
 
-  (use-package toc-org
-    :after org
-    :commands toc-org-enable
-    :init (add-hook 'org-mode-hook 'toc-org-enable))
+(use-package toc-org
+  :after org
+  :commands toc-org-enable
+  :init (add-hook 'org-mode-hook 'toc-org-enable))
 
 #+end_src
 
@@ -866,13 +859,11 @@ Try these commands with =M-x=:
 This is a basic configuration for the TypeScript language so that =.ts= files activate =typescript-mode= when opened.  We're also adding a hook to =typescript-mode-hook= to call =lsp-deferred= so that we activate =lsp-mode= to get LSP features every time we edit TypeScript code.
 
 #+begin_src emacs-lisp
-
-  (use-package typescript-mode
-    :mode "\\.ts\\'"
-    :hook (typescript-mode . lsp-deferred)
-    :config
-    (setq typescript-indent-level 2))
-
+(use-package typescript-mode
+  :mode "\\.ts\\'"
+  :hook (typescript-mode . lsp-deferred)
+  :config
+  (setq typescript-indent-level 2))
 #+end_src
 
 *** Web
@@ -903,6 +894,12 @@ This is a basic configuration for the TypeScript language so that =.ts= files ac
   :mode "\\.hs\\'")
 #+end_src>
 
+*** Java
+
+#+begin_src emacs-lisp
+(use-package lsp-java
+  :mode "\\.java\\'")
+#+end_src>
 ** Company Mode
 
 [[http://company-mode.github.io/][Company Mode]] provides a nicer in-buffer completion interface than =completion-at-point= which is more reminiscent of what you would expect from an IDE.  We add a simple configuration to make the keybindings a little more useful (=TAB= now completes the selection and initiates completion at the current location if needed).

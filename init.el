@@ -98,7 +98,7 @@
 (set-face-attribute 'variable-pitch nil
                     :font "Roboto"
                     :height efs/default-variable-font-size
-                    :weight 'regular)
+                    :weight 'medium)
 
 ;; Needed if using emacsclient. Otherwise, your fonts will be smaller than expected.
 (add-to-list 'default-frame-alist '(font . "JetBrainsMono Nerd Font-13"))
@@ -244,17 +244,8 @@ List of bookmarks   (C-x r b)")
   ([remap describe-variable] . counsel-describe-variable)
   ([remap describe-key] . helpful-key))
 
-(use-package hydra
-  :defer t)
-
-(defhydra hydra-text-scale (:timeout 4)
-  "scale text"
-  ("j" text-scale-increase "in")
-  ("k" text-scale-decrease "out")
-  ("f" nil "finished" :exit t))
-
-(efs/leader-keys
-  "ts" '(hydra-text-scale/body :which-key "scale text"))
+(global-set-key (kbd "C-=") 'text-scale-increase)
+(global-set-key (kbd "C--") 'text-scale-decrease)
 
 (defun efs/org-font-setup ()
 (dolist
@@ -269,16 +260,21 @@ List of bookmarks   (C-x r b)")
         (org-level-8 1.0 "#ff6c6b" normal)))
 
     (set-face-attribute (nth 0 face) nil
-                        :font "Roboto" :weight (nth 3 face)
+                        :font "Roboto"
                         :weight (nth 3 face)
                         :height (nth 1 face)
-                        :foreground (nth 2 face)))
+                        :foreground (nth 2 face))
 
     (set-face-attribute 'org-table nil
                         :font "JetBrainsMono Nerd Font"
                         :weight 'normal
                         :height 1.0
                         :foreground "#bfafdf")
+
+    (set-face-attribute 'org-block nil
+                        :font "JetBrainsMono Nerd Font"
+                        :weight 'normal
+                        :height 1.0))
 
     ;; Ensure that anything that should be fixed-pitch in Org files appears that way
     (set-face-attribute 'org-block nil    :foreground nil :inherit 'fixed-pitch)
@@ -302,8 +298,9 @@ List of bookmarks   (C-x r b)")
 (use-package org
   :pin org
   :commands (org-capture org-agenda)
-  :hook (org-mode . efs/org-mode-setup)
-  :bind (("C-x C-a l" . 'org-agenda-list))
+  :hook ((org-mode . efs/org-mode-setup)
+					(org-mode . efs/org-font-setup))
+  :bind (("C-c C-a l" . 'org-agenda-list))
   :config
   (setq org-ellipsis " ▾"
         org-src-fontify-natively t
@@ -428,9 +425,9 @@ List of bookmarks   (C-x r b)")
        "| %U | %^{Weight} | %^{Notes} |" :kill-buffer t)))
 
   (define-key global-map (kbd "C-c j")
-    (lambda () (interactive) (org-capture nil "jj")))
+    (lambda () (interactive) (org-capture nil "jj"))))
 
-  (efs/org-font-setup))
+  ;;(efs/org-font-setup))
 
 (use-package org-superstar
   :after org
@@ -442,7 +439,7 @@ List of bookmarks   (C-x r b)")
   (org-superstar-headline-bullets-list '("◉" "○" "●" "○" "●" "○" "●")))
 
 (defun efs/org-mode-visual-fill ()
-  (setq visual-fill-column-width 120
+  (setq visual-fill-column-width 135
         visual-fill-column-center-text t)
   (visual-fill-column-mode 1))
 
