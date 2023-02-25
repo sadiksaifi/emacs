@@ -1,7 +1,7 @@
 #+title: GNU Emacs Configuration
 #+author: Sadik Saifi
-#+PROPERTY: header-args :tangle init.el
-#+STARTUP: showeverything
+#+property: header-args :tangle init.el
+#+startup: showeverything
 
 * About
 
@@ -196,7 +196,7 @@ Disable line numbers for some modes
                 shell-mode-hook
                 treemacs-mode-hook
                 eshell-mode-hook))
-  (add-hook mode (lambda () (display-line-numbers-mode -1))))
+  (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
 #+end_src>
 
@@ -212,12 +212,14 @@ I am using the [[https://www.nerdfonts.com/font-downloads][JetBrainsMono Nerd Fo
 ;; Set the default font
 (set-face-attribute 'default nil
                     :font "JetBrainsMono Nerd Font"
-                    :height efs/default-font-size)
+                    :height efs/default-font-size
+                    :weight 'medium)
 
 ;; Set the fixed pitch face
 (set-face-attribute 'fixed-pitch nil
                     :font "JetBrainsMono Nerd Font"
-                    :height efs/default-font-size)
+                    :height efs/default-font-size
+                    :weight 'medium)
 
 ;; Set the variable pitch face
 (set-face-attribute 'variable-pitch nil
@@ -432,7 +434,7 @@ This configuration uses [[https://evil.readthedocs.io/en/latest/index.html][evil
   (ivy-rich-mode 1))
 
 (use-package counsel
-  :bind (("C-x C-b" . counsel-ibuffer))
+  :bind (("C-x C-b" . counsel-switch-buffer))
   :custom
   (counsel-linux-app-format-function #'counsel-linux-app-format-function-name-only)
   :config
@@ -521,7 +523,7 @@ The =efs/org-font-setup= function configures various text faces to tweak the siz
 
     (set-face-attribute 'org-block nil
                         :font "JetBrainsMono Nerd Font"
-                        :weight 'normal
+                        :weight 'medium
                         :height 1.0))
 
     ;; Ensure that anything that should be fixed-pitch in Org files appears that way
@@ -806,13 +808,14 @@ The =which-key= integration adds helpful descriptions of the various keys so you
 
 (use-package lsp-mode
   :commands (lsp lsp-deferred)
-  :hook ((c-mode
-          c++-mode
-          java-mode
-          js-mode
-          js-jsx-mode
-          typescript-mode
-          web-mode). lsp)
+  :hook (lsp-mode)
+  ;; :hook ((c-mode
+  ;;         c++-mode
+  ;;         java-mode
+  ;;         js-mode
+  ;;         js-jsx-mode
+  ;;         typescript-mode
+  ;;         web-mode). lsp)
   :init
   (setq lsp-keymap-prefix "C-c l")
   :config
@@ -1044,6 +1047,7 @@ Make sure that you have the [[https://github.com/akermu/emacs-libvterm/#requirem
   :config
   (setq term-prompt-regexp "^[^#$%>\n]*[#$%>] *")  ;; Set this to match your custom shell prompt
   (setq vterm-shell "zsh")                         ;; Set this to customize the shell to launch
+  (setq display-line-numbers-mode -1)
   (setq vterm-max-scrollback 10000))
 
 (use-package vterm-toggle

@@ -87,12 +87,14 @@
 ;; Set the default font
 (set-face-attribute 'default nil
                     :font "JetBrainsMono Nerd Font"
-                    :height efs/default-font-size)
+                    :height efs/default-font-size
+                    :weight 'medium)
 
 ;; Set the fixed pitch face
 (set-face-attribute 'fixed-pitch nil
                     :font "JetBrainsMono Nerd Font"
-                    :height efs/default-font-size)
+                    :height efs/default-font-size
+                    :weight 'medium)
 
 ;; Set the variable pitch face
 (set-face-attribute 'variable-pitch nil
@@ -218,7 +220,7 @@ List of bookmarks   (C-x r b)")
   (ivy-rich-mode 1))
 
 (use-package counsel
-  :bind (("C-x C-b" . counsel-ibuffer))
+  :bind (("C-x C-b" . counsel-switch-buffer))
   :custom
   (counsel-linux-app-format-function #'counsel-linux-app-format-function-name-only)
   :config
@@ -273,7 +275,7 @@ List of bookmarks   (C-x r b)")
 
     (set-face-attribute 'org-block nil
                         :font "JetBrainsMono Nerd Font"
-                        :weight 'normal
+                        :weight 'medium
                         :height 1.0))
 
     ;; Ensure that anything that should be fixed-pitch in Org files appears that way
@@ -480,13 +482,14 @@ List of bookmarks   (C-x r b)")
 
 (use-package lsp-mode
   :commands (lsp lsp-deferred)
-  :hook ((c-mode
-          c++-mode
-          java-mode
-          js-mode
-          js-jsx-mode
-          typescript-mode
-          web-mode). lsp)
+  :hook (lsp-mode)
+  ;; :hook ((c-mode
+  ;;         c++-mode
+  ;;         java-mode
+  ;;         js-mode
+  ;;         js-jsx-mode
+  ;;         typescript-mode
+  ;;         web-mode). lsp)
   :init
   (setq lsp-keymap-prefix "C-c l")
   :config
@@ -573,6 +576,7 @@ List of bookmarks   (C-x r b)")
   :config
   (setq term-prompt-regexp "^[^#$%>\n]*[#$%>] *")  ;; Set this to match your custom shell prompt
   (setq vterm-shell "zsh")                         ;; Set this to customize the shell to launch
+  (setq display-line-numbers-mode -1)
   (setq vterm-max-scrollback 10000))
 
 (use-package vterm-toggle
