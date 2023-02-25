@@ -291,7 +291,7 @@ List of bookmarks   (C-x r b)")
 
 (defun efs/org-mode-setup ()
   (org-indent-mode)
-  (display-line-numbers-mode 0)
+  (display-line-numbers-mode -1) 
   (variable-pitch-mode 1)
   (visual-line-mode 1))
 
@@ -299,7 +299,7 @@ List of bookmarks   (C-x r b)")
   :pin org
   :commands (org-capture org-agenda)
   :hook ((org-mode . efs/org-mode-setup)
-					(org-mode . efs/org-font-setup))
+				  (org-mode . efs/org-font-setup))
   :bind (("C-c C-a l" . 'org-agenda-list))
   :config
   (setq org-ellipsis " ▾"
@@ -426,8 +426,6 @@ List of bookmarks   (C-x r b)")
 
   (define-key global-map (kbd "C-c j")
     (lambda () (interactive) (org-capture nil "jj"))))
-
-  ;;(efs/org-font-setup))
 
 (use-package org-superstar
   :after org
