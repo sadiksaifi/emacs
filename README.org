@@ -154,7 +154,7 @@ We use the [[https://github.com/emacscollective/no-littering/blob/master/no-litt
   (global-display-line-numbers-mode t)                ; Enable line numbering in all buffers/modes
   (setq display-line-numbers-type 'relative)          ; Set relative line number
 
-;  (setq frame-title-format '("Emacs")                 ; Setting frame title
+  (setq frame-title-format "GNU Emacs")               ; Setting frame title
   (global-hl-line-mode 1)                             ; Enable cursor line
   (setq use-dialog-box nil)                           ; Disable the dialog/popups boxes
   (fset 'yes-or-no-p 'y-or-n-p)                       ; simplifying yes and no

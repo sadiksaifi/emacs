@@ -48,30 +48,30 @@
 
 (setq inhibit-startup-message t)                    ; Disable the default startup message
 
-  (tool-bar-mode -1)                                  ; Disable the toolbar
-  (tooltip-mode -1)                                   ; Disable tooltips
-  (set-fringe-mode 10)                                ; Give some breathing room
-  (menu-bar-mode -1)                                  ; Disable the menu bar
-  (blink-cursor-mode -1)                              ; Disables blinking cursor
-  (setq visible-bell nil)                             ; Disable up the visible bell
+(tool-bar-mode -1)                                  ; Disable the toolbar
+(tooltip-mode -1)                                   ; Disable tooltips
+(set-fringe-mode 10)                                ; Give some breathing room
+(menu-bar-mode -1)                                  ; Disable the menu bar
+(blink-cursor-mode -1)                              ; Disables blinking cursor
+(setq visible-bell nil)                             ; Disable up the visible bell
 
-  (column-number-mode 1)                              ; display column number in modeline
-  (global-display-line-numbers-mode t)                ; Enable line numbering in all buffers/modes
-  (setq display-line-numbers-type 'relative)          ; Set relative line number
+(column-number-mode 1)                              ; display column number in modeline
+(global-display-line-numbers-mode t)                ; Enable line numbering in all buffers/modes
+(setq display-line-numbers-type 'relative)          ; Set relative line number
 
-;  (setq frame-title-format '("Emacs")                 ; Setting frame title
-  (global-hl-line-mode 1)                             ; Enable cursor line
-  (setq use-dialog-box nil)                           ; Disable the dialog/popups boxes
-  (fset 'yes-or-no-p 'y-or-n-p)                       ; simplifying yes and no
-  (setq global-auto-revert-non-file-buffers t)        ; Revert Dired and other buffers
-  (global-auto-revert-mode 1)                         ; Enable refreshing buffers automatically
-  (setq-default tab-width 2)                          ; Enable two tabs
-  (recentf-mode 1)                                    ; Enable recent files accessiblity
-  (save-place-mode 1)                                 ; Droping cursor on the last edited line
-  (electric-pair-mode 1)                              ; Enable auto pair parenthesis
-  (setq vc-follow-symlinks t)                         ; Enable follow symlinks
-  (setq user-full-name "Sadik Saifi")                 ; Sets name
-  (setq user-mail-address "Sadiksaifi205@gmail.com")  ; Sets email address
+(setq frame-title-format "GNU Emacs")               ; Setting frame title
+(global-hl-line-mode 1)                             ; Enable cursor line
+(setq use-dialog-box nil)                           ; Disable the dialog/popups boxes
+(fset 'yes-or-no-p 'y-or-n-p)                       ; simplifying yes and no
+(setq global-auto-revert-non-file-buffers t)        ; Revert Dired and other buffers
+(global-auto-revert-mode 1)                         ; Enable refreshing buffers automatically
+(setq-default tab-width 2)                          ; Enable two tabs
+(recentf-mode 1)                                    ; Enable recent files accessiblity
+(save-place-mode 1)                                 ; Droping cursor on the last edited line
+(electric-pair-mode 1)                              ; Enable auto pair parenthesis
+(setq vc-follow-symlinks t)                         ; Enable follow symlinks
+(setq user-full-name "Sadik Saifi")                 ; Sets name
+(setq user-mail-address "Sadiksaifi205@gmail.com")  ; Sets email address
 
 (scroll-bar-mode -1)
 
