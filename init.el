@@ -243,10 +243,10 @@ List of bookmarks   (C-x r b)")
 (defun efs/org-font-setup ()
 (dolist
     (face
-        '((org-level-1 1.2 "#51afef" bold)
-        (org-level-2 1.1 "#c678dd" semi-bold)
-        (org-level-3 1.05 "#98be65" normal)
-        (org-level-4 1.0 "#da8548" normal)
+        '((org-level-1 1.3 "#51afef" extra-bold)
+        (org-level-2 1.2 "#c678dd" bold)
+        (org-level-3 1.1 "#98be65" semi-bold)
+        (org-level-4 1.05 "#da8548" normal)
         (org-level-5 1.0 "#5699af" normal)
         (org-level-6 1.0 "#a9a1e1" normal)
         (org-level-7 1.0 "#46d9ff" normal)
@@ -257,6 +257,11 @@ List of bookmarks   (C-x r b)")
                         :weight (nth 3 face)
                         :height (nth 1 face)
                         :foreground (nth 2 face))
+
+    (set-face-attribute 'org-default nil
+												:family "Roboto"
+                        :weight 'medium
+												:height 1.0)
 
     (set-face-attribute 'org-table nil
                         :font "JetBrainsMono Nerd Font"
@@ -272,12 +277,10 @@ List of bookmarks   (C-x r b)")
     ;; Ensure that anything that should be fixed-pitch in Org files appears that way
     (set-face-attribute 'org-block nil    :foreground nil :inherit 'fixed-pitch)
     (set-face-attribute 'org-code nil     :inherit '(shadow fixed-pitch))
-    (set-face-attribute 'org-table nil    :inherit 'fixed-pitch)
     (set-face-attribute 'org-formula nil  :inherit 'fixed-pitch)
     (set-face-attribute 'org-table nil    :inherit '(shadow fixed-pitch))
     (set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
     (set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
-    (set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
     (set-face-attribute 'org-checkbox nil  :inherit 'fixed-pitch)
     (set-face-attribute 'line-number nil :inherit 'fixed-pitch)
     (set-face-attribute 'line-number-current-line nil :inherit 'fixed-pitch))
