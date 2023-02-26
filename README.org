@@ -17,6 +17,7 @@ This is emacs configuration targeted towards programmer in mind.
   - [[#configuration][Configuration]]
   - [[#disabling-things][Disabling things]]
   - [[#font-configuration][Font Configuration]]
+  - [[#transaprency][Transaprency]]
   - [[#setting-custom-vars][Setting Custom Vars]]
 - [[#bookmarks][Bookmarks]]
 - [[#dashboard][Dashboard]]
@@ -213,6 +214,16 @@ I am using the [[https://www.nerdfonts.com/font-downloads][JetBrainsMono Nerd Fo
 
 #+end_src
 
+** Transaprency
+Set frame transparency
+
+#+begin_src emacs-lisp
+
+(defvar efs/frame-transparency '(85 . 85))
+(set-frame-parameter (selected-frame) 'alpha efs/frame-transparency)
+(add-to-list 'default-frame-alist `(alpha . ,efs/frame-transparency))
+
+#+end_src
 ** Setting Custom Vars
 Enable the abiltity to write custom variable in a different file.
 
@@ -876,6 +887,7 @@ This is a basic configuration for the TypeScript language so that =.ts= files ac
 
 #+begin_src emacs-lisp
 (use-package lsp-haskell
+  :straight t
   :mode "\\.hs\\'")
 #+end_src>
 

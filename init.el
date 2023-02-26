@@ -97,6 +97,10 @@
 (add-to-list 'default-frame-alist '(font . "JetBrainsMono Nerd Font-13"))
 (setq default-frame-alist '((font . "JetBrainsMono Nerd Font-13")))
 
+(defvar efs/frame-transparency '(85 . 85))
+(set-frame-parameter (selected-frame) 'alpha efs/frame-transparency)
+(add-to-list 'default-frame-alist `(alpha . ,efs/frame-transparency))
+
 (setq custom-file (locate-user-emacs-file "custom-vars.el"))
 (load custom-file 'noerror 'nomessage)
 
